@@ -1,0 +1,14 @@
+var m_temp = current.variables.number_of_envelopes;
+//var now_GR = new GlideRecord('incident');
+
+
+//if( m_temp > 0){
+	while(m_temp > 0 ){
+		if(current.variables.requested_for == current.variables.requester)
+		 gs.eventQueue('envelope_event_script_action',current,m_temp,current.variables.requester)
+		else
+		gs.eventQueue('envelope_event_script_action',current,m_temp,current.variables.requested_for)
+		//gs.eventQueue('envelope_event_script_action',current,m_temp,'ericwangcia34@gmail.com')
+		m_temp = m_temp - 1
+	}
+//}

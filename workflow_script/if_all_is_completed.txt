@@ -1,0 +1,22 @@
+answer = allCompleted();
+
+function allCompleted(){
+	var grTask = GlideRecord('sc_task');
+	var completed = 0;
+	var count;
+	grTask.addQuery('request_item',current.sys_id);
+	grTask.query();
+	
+	count = grTask.getRowCount();
+	
+	
+	while ( grTask.next() ){
+		
+		if (grTask.getValue('state') === '3') {
+			completed++;
+		}
+		
+	}
+	
+	return count === completed ? 'yes' : 'no';
+}
