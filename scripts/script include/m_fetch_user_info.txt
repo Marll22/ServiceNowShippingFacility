@@ -1,0 +1,49 @@
+var m_fetch_user_info = Class.create();
+m_fetch_user_info.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+	requestor_info: function() {
+		var result = this.newItem("result");
+		var logged_user = gs.getUserID();
+		var user_detail = new GlideRecord('sys_user');
+		user_detail.addQuery('sys_id',logged_user);
+		user_detail.query();
+		while(user_detail.next())
+		{
+			//user_detail.username = gs.getUserDisplayName();
+			//result.setAttribute("user",user_detail.sys_id.getDisplayValue());
+			result.setAttribute("phone", user_detail.phone);
+			result.setAttribute("email",user_detail.email);
+			result.setAttribute("company",user_detail.company);
+			result.setAttribute("manager",user_detail.manager);
+			result.setAttribute("location",user_detail.location.getDisplayValue());
+			result.setAttribute("user",user_detail.first_name +" " + user_detail.last_name);
+		
+		}
+	},
+	requested_for_info:function(){
+		var result = this.newItem("result");
+		var requestor_for_name = this.getParameter('sysparm_requestorForName'); //this is not done
+		var user_detail = new GlideRecord('sys_user');
+		//do query 
+		user_detail.addQuery('sys_id',requestor_for_name);
+		user_detail.query();
+		if(user_detail.next()){
+			result.setAttribute("location", user_detail.location.getDisplayValue());
+		}
+		
+	},
+	get_country:function(){
+		var result = this.newItem("result");
+		var m_city = this.getParameter('sysparm_city'); //this is not done		
+		//var m_city ="Hong Kong"
+		var m_locations = new GlideRecord('cmn_location');
+		//do query 
+		m_locations.addQuery('city',m_city);
+		m_locations.query();
+		if(m_locations.next()){
+			result.setAttribute("country", m_locations.country.getDisplayValue());
+			//result.setAttribute("country","Japan")
+		}
+		
+	},
+	type: 'm_fetch_user_info'
+});
