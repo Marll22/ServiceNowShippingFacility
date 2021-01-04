@@ -1,0 +1,11 @@
+function onLoad() {
+   //Type appropriate comment here, and begin script below
+	g_form.setMandatory('requested_for', true);
+	g_form.setMandatory('shipping_type',true);
+	g_form.setMandatory('origin',true);
+	g_form.setMandatory('destination_address',true);
+	g_form.setMandatory('state', true);
+	g_form.setMandatory('country',true);
+	g_form.setMandatory('shipment_type',true);
+
+}

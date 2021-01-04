@@ -1,0 +1,21 @@
+function onChange() {
+	
+	m_city = g_form.getValue('predefined_city');
+	console.log("m_requested_for is: " + m_city);
+	var ga = new GlideAjax("m_fetch_user_info");
+	ga.addParam("sysparm_name", "get_country");
+	ga.addParam("sysparm_city", m_city);
+	ga.getXML(ajaxResponse);
+
+  function ajaxResponse(serverResponse) {
+    var result = serverResponse.responseXML.getElementsByTagName("result");
+	var country = result[0].getAttribute("country");
+	console.log("country is: " + country);
+    //Populate variables
+    g_form.setValue("country",country);
+	  
+	//g_form.setReadOnly('location', true);
+    
+  }
+  
+}

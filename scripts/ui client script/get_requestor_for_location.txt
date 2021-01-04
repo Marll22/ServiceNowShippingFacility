@@ -1,0 +1,22 @@
+function onChange() {
+	
+	m_requested_for = g_form.getValue('requested_for');
+	console.log("m_requested_for is: " + m_requested_for);
+	var ga = new GlideAjax("m_fetch_user_info");
+	ga.addParam("sysparm_name", "requested_for_info");
+	ga.addParam("sysparm_requestorForName", m_requested_for);
+	ga.getXML(ajaxResponse);
+
+  function ajaxResponse(serverResponse) {
+    var result = serverResponse.responseXML.getElementsByTagName("result");
+
+    
+	var location = result[0].getAttribute("location");
+	//console.log("location is: " + location);
+    //Populate variables
+    g_form.setValue("location",location);
+	g_form.setReadOnly('location', true);
+    
+  }
+  
+}

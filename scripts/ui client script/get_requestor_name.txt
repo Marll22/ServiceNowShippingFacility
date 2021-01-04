@@ -1,0 +1,25 @@
+function onLoad() {
+	
+  
+	var ga = new GlideAjax("m_fetch_user_info");
+  ga.addParam("sysparm_name", "requestor_info");
+  ga.getXML(ajaxResponse);
+
+  function ajaxResponse(serverResponse) {
+    var result = serverResponse.responseXML.getElementsByTagName("result");
+
+    var phone = result[0].getAttribute("phone");
+    var user = result[0].getAttribute("user");
+    var email = result[0].getAttribute("email");
+    var manager = result[0].getAttribute("manager");
+    var company = result[0].getAttribute("company");
+    var location = result[0].getAttribute("location");
+
+    //Populate variables
+    
+    g_form.setValue("requester", user);
+	g_form.setReadOnly('requester',true);
+    
+  }
+  
+}
